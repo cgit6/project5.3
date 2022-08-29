@@ -2,13 +2,17 @@
 <html lang="en">
   <head>
     <%- include ("partials/header") %>
-    <title>Login</title>
+    <title>Profile</title>
   </head>
   <body>
     <%- include ("partials/nav") %>
     <h1>Profile page</h1>
     <p>User: <%= user.name %></p>
-    <img src="<%= user.thumbnail  %> " alt="" />
+    <img
+      src="<%= user.thumbnail  %> "
+      style="width: 30px; height: 30px"
+      alt=""
+    />
     <p><%= user.googleID %></p>
     <p><%= user.date %></p>
     <hr />
@@ -22,14 +26,39 @@
       </div>
       <ul class="list-group list-group-flush">
         <li class="list-group-item">
-          Project: <a href="<%= posts[i].project %>" class="card-text">URL</a>
+          <!-- 跳轉至外部連結 -->
+          Project:
+          <a href="<%= posts[i].project %>" class="card-text" target="_blank"
+            ><%= posts[i].project %></a
+          >
         </li>
         <li class="list-group-item">Date: <%= posts[i].date %></li>
       </ul>
       <div class="card-body">
         <p class="card-text">Content: <%= posts[i].content %></p>
+        <img
+          src="<%=  posts[i].image %> "
+          width="100"
+          class="img-thumbnail"
+          alt="<%=  posts[i].image %>"
+        />
+        <br />
+        <button class="edit-me btn btn-secondary btn-sm mr-1">Edit</button>
+        <button data-id="" class="delete-me btn btn-danger btn-sm">
+          Delete
+        </button>
       </div>
     </div>
     <% } %> <% } %>
+
+    <script>
+      document.addEventListener("click", function (e) {
+        if (e.target.classList.contains("delete-me")) {
+          //Key data-id
+          let _id = e.target.getAttribute("data-id");
+          console.log("going to delete:" + _id);
+        }
+      });
+    </script>
   </body>
 </html>

@@ -27,6 +27,7 @@ mongoose
 // middleware
 app.set("view engine", "ejs");
 app.use(express.json());
+app.use(express.static("uploads"));
 app.use(express.urlencoded({ extended: true }));
 app.use(
   session({
@@ -53,6 +54,11 @@ app.get("/", async (req, res) => {
 
   res.render("index", { user: req.user, posts: postFound });
 });
+
+// app.get("/*", (req, res) => {
+//   res.status(404);
+//   res.send("404 not found");
+// });
 
 app.listen(process.env.PORT || 8081, () => {
   console.log("Server running on port 8081.");

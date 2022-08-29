@@ -9,6 +9,8 @@ require("./config/passport");
 const passport = require("passport");
 const session = require("express-session");
 const flash = require("connect-flash");
+const Post = require("./models/post-model");
+const port = "https://project3232.herokuapp.com" || 8080;
 
 mongoose
   .connect(process.env.DB_CONNECT, {
@@ -45,8 +47,11 @@ app.use((req, res, next) => {
 app.use("/auth", authRoute);
 app.use("/profile", profileRoute);
 
-app.get("/", (req, res) => {
-  res.render("index", { user: req.user });
+// route
+app.get("/", async (req, res) => {
+  let postFound = await Post.find({});
+
+  res.render("index", { user: req.user, posts: postFound });
 });
 
 app.listen(process.env.PORT || 8081, () => {
